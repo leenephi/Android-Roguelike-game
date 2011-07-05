@@ -1,0 +1,26 @@
+what,kind,bundleId,bundleVersion,description,time
+deactivated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852318607
+activated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852323596
+deactivated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852345193
+activated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852405609
+deactivated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852408219
+executed,command,org.eclipse.ui,3.6.1.M20100826-1330,"org.eclipse.ui.edit.selectAll",1309852424757
+error,log,,,"Unhandled event loop exception",1309852509732
+error,log,,,"Failed to load properties file for project 'Roguelike'",1309852512106
+activated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852512172
+activated,view,org.eclipse.jdt.ui,3.6.1.r361_v20100825-0800,"org.eclipse.jdt.ui.PackageExplorer",1309852513713
+opened,editor,org.eclipse.jdt.ui,3.6.1.r361_v20100825-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1309852517875
+activated,editor,org.eclipse.jdt.ui,3.6.1.r361_v20100825-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1309852517904
+activated,view,org.eclipse.jdt.ui,3.6.1.r361_v20100825-0800,"org.eclipse.jdt.ui.PackageExplorer",1309852530194
+deactivated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852539180
+activated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852542957
+executed,command,org.eclipse.debug.ui,3.6.1.v20100901_r361,"org.eclipse.debug.ui.commands.RunLast",1309852542967
+activated,view,org.eclipse.ui.console,3.5.0.v20100526,"org.eclipse.ui.console.ConsoleView",1309852546192
+deactivated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852551535
+activated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852567840
+executed,command,org.eclipse.debug.ui,3.6.1.v20100901_r361,"org.eclipse.debug.ui.commands.OpenRunConfigurations",1309852567845
+deactivated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852567880
+activated,workbench,org.eclipse.ui.workbench,3.6.1.M20100826-1330,"",1309852570239
+activated,editor,org.eclipse.jdt.ui,3.6.1.r361_v20100825-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1309852590327
+activated,view,org.eclipse.jdt.ui,3.6.1.r361_v20100825-0800,"org.eclipse.jdt.ui.PackageExplorer",1309852592864
+activated,editor,org.eclipse.jdt.ui,3.6.1.r361_v20100825-0800,"org.eclipse.jdt.ui.CompilationUnitEditor",1309852594151

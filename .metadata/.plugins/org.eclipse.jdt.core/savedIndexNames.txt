@@ -1,0 +1,2 @@
+INDEX VERSION 1.126+C:\Users\Otto\Android-Roguelike-game\.metadata\.plugins\org.eclipse.jdt.core
+2481969107.index

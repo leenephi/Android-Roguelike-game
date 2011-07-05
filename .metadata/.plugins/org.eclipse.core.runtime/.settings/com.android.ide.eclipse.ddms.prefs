@@ -1,0 +1,5 @@
+#Tue Jul 05 09:56:47 EEST 2011
+com.android.ide.eclipse.ddms.defaultHeapUpdateEnabled=true
+eclipse.preferences.version=1
+com.android.ide.eclipse.ddms.adbDebugBasePort=5555
+com.android.ide.eclipse.ddms.defaultThreadUpdateEnabled=true
