@@ -1,0 +1,27 @@
+package android.roguelike;
+
+public class TileMap {
+	
+	private TileLayer[] layerData;
+	private int width;
+	private int height;
+	private DrawableCharset charset;
+
+	public TileMap(int MapWidth, int MapHeight, DrawableCharset cset) {
+		
+		width = MapHeight;
+		height = MapHeight;
+		layerData = new TileLayer[4];
+		charset = cset;
+		
+		UglyGenerator();
+
+	}
+	
+	public void UglyGenerator() {
+		
+		layerData[MAPLAYER] = new TileLayer(width,height,charset.GetChar("floor"));
+		
+	}
+
+}

@@ -1,0 +1,33 @@
+package android.roguelike;
+
+public class TileScreen {
+	
+	private static final int BUFFERLAYER = 0;
+	private static final int MAPLAYER = 1;
+	private static final int ITEMLAYER = 2;
+	private static final int MONSTERLAYER = 3;
+	
+	private TileLayer[] layerData;
+	
+	private int width;
+	private int height;
+	
+	private DrawableCharset charset;
+	private TileMap map;
+
+	public TileScreen(int ScreenWidth, int ScreenHeight, DrawableCharset cset) {
+		
+		width = ScreenHeight;
+		height = ScreenHeight;
+		layerData = new TileLayer[4];
+		charset = cset;
+		
+	}
+	
+	public void LoadMap(TileMap tilemap) {this.map = tilemap;}
+	
+	public void Draw() {
+		
+	}
+
+}

@@ -1,0 +1,23 @@
+package android.roguelike;
+
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+
+public class DrawableChar {
+	
+	private Drawable draw;
+	private char c;
+	private String name; 
+	
+	public DrawableChar(int resourceID, char ch, String name, Resources res) {
+		draw = res.getDrawable(resourceID);
+		c = ch;
+	}
+
+	public Drawable GetDrawable() {return draw;}
+	
+	public char GetChar() {return c;}
+	
+	public String GetName() {return name;}
+
+}

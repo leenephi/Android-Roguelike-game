@@ -1,0 +1,10 @@
+package android.roguelike;
+
+public class TileMap {
+	
+	public TileMap() {
+		
+	}
+	
+
+}
