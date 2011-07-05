@@ -1,0 +1,58 @@
+package android.roguelike;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import java.util.List;
+
+import android.view.View;
+
+public class DrawableTileView extends View {
+
+	private Drawable wall;	
+	private Drawable[] map;
+	
+	private int mapWidth = 20;
+	private int mapHeight = 40;
+
+	public DrawableTileView(Context context) {
+		super(context);
+		
+		Resources res = getResources();
+		
+		wall = res.getDrawable(R.drawable.wall);
+		
+		map = new Drawable[mapWidth*mapHeight];
+		
+		for (int i=0; i< 3; i++) {
+			map[i] = wall;
+		}
+		
+	}
+	
+    protected void onDraw(Canvas canvas) {
+    	
+    	int startX = 0;
+        int startY = 0;
+        
+        int width = wall.getIntrinsicWidth();
+        int height = wall.getIntrinsicHeight();
+    	
+    	for (int x=0; x< mapWidth; x++) {
+    		for (int y=0; y< mapHeight; y++) {
+    			
+    			int i = x*mapHeight+y;
+    			
+    			map[i].setBounds(startX, startY, 
+    					startX + width*x, startY + height*y);
+    		
+    			map[i].draw(canvas);
+    		}
+
+		}
+    	
+    }
+
+}
