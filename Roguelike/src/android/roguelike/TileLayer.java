@@ -6,15 +6,15 @@ public class TileLayer {
 	
 	private int width;
 	private int height;
-	private DrawableChar[][] data;
-	private DrawableChar base;
+	private TileChar[][] data;
+	private TileChar base;
 	
-	public TileLayer(int LayerWidth, int LayerHeight, DrawableChar basechar) {
+	public TileLayer(int LayerWidth, int LayerHeight, TileChar basechar) {
 		
 		width = LayerWidth;
 		height = LayerHeight;
 		base = basechar;
-		data = new DrawableChar[width][height];
+		data = new TileChar[width][height];
 	}
 	
 	public void Draw(int StartX, int StartY, int w, int h, Canvas canvas){
@@ -39,7 +39,18 @@ public class TileLayer {
 
 	}
 	
-	public void Fill(DrawableChar c) {
+	public void DifferenceWith(TileLayer layer) {
+		if (layer.width == this.width && layer.height == this.height) {
+			for (int x=0; x < width; x++) {
+				for (int y=0; y < height; y++) {
+					if (this.data[x][y] == layer.data[x][y]) this.data[x][y] = null;
+				}
+			}
+		}
+
+	}
+	
+	public void Fill(TileChar c) {
 		for (int x=0; x < width; x++) {
 			for (int y=0; y < height; y++) {
 				data[x][y] = c;
@@ -47,7 +58,7 @@ public class TileLayer {
 		}
 	}
 	
-	public Boolean PutChar(int x, int y, DrawableChar c) {
+	public Boolean PutChar(int x, int y, TileChar c) {
 		if (x >= 0 && x < width && y >= 0 && y < height){
 			data[x][y] = c;
 			return true;
@@ -63,7 +74,7 @@ public class TileLayer {
 	 * @param y-coordinate integer
 	 * @return DrawableChar or null
 	 */
-	public DrawableChar GetChar(int x, int y) {
+	public TileChar GetChar(int x, int y) {
 		
 		if (x >= 0 && x < width && y >= 0 && y < height){
 			if (data[x][y] != null) {

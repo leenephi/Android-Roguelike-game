@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="hello">Hello World, RoguelikeActivity!</string>
-    <string name="app_name">Roguelike</string>
-    <string name="hellostring">Welcome to roguelike with android</string>
-</resources>

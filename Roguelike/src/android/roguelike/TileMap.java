@@ -5,11 +5,11 @@ public class TileMap {
 	private TileLayer data;
 	private int width;
 	private int height;
-	private DrawableCharset charset;
+	private TileCharset charset;
 
-	public TileMap(int MapWidth, int MapHeight, DrawableCharset cset) {
+	public TileMap(int MapWidth, int MapHeight, TileCharset cset) {
 		
-		this.width = MapHeight;
+		this.width = MapWidth;
 		this.height = MapHeight;
 		this.charset = cset;
 		
