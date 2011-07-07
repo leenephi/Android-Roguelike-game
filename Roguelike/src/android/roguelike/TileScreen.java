@@ -10,52 +10,41 @@ public class TileScreen {
 	private static final int MONSTERLAYER = 3;
 	private static final int IMAGELAYER = 4;
 	
-	private TileLayer[] layerData;
+	public TileLayer[] layerData;
 	
 	private int width;
 	private int height;
 	
-	private TileCharset charset;
 	private TileMap map;
 
-	public TileScreen(int ScreenWidth, int ScreenHeight, TileCharset cset) {
+	public TileScreen(int ScreenWidth, int ScreenHeight) {
 		
 		width = ScreenWidth;
 		height = ScreenHeight;
 		layerData = new TileLayer[5];
 		
-		layerData[BUFFERLAYER] = new TileLayer(width,height,null);
-		layerData[MONSTERLAYER] = new TileLayer(width,height,null);
-		layerData[ITEMLAYER] = new TileLayer(width,height,null);
-		layerData[IMAGELAYER] = new TileLayer(width,height,null);
-		
-		charset = cset;
+		layerData[BUFFERLAYER] = new TileLayer(width,height);
+		layerData[MONSTERLAYER] = new TileLayer(width,height);
+		layerData[ITEMLAYER] = new TileLayer(width,height);
+		layerData[IMAGELAYER] = new TileLayer(width,height);
 		
 	}
 	
-
-	
-	public boolean MovePlayer(int oldx, int oldy, int x, int y){
-		
-		if (PutPlayer(x, y) &&  (oldx != x || oldy != y)){
-			return RemovePlayer(oldx, oldy);
+	public boolean PutMonster(int x, int y, Monster monster){
+		if (this.layerData[MONSTERLAYER].GetChar(x, y) == null) {
+			return this.layerData[MONSTERLAYER].PutChar(x, y, monster.getChar());
 		}
-		
 		return false;
 	}
 	
-	public boolean PutPlayer(int x, int y){
-		return this.layerData[MONSTERLAYER].PutChar(x, y, this.charset.GetChar("player"));
-	}
-	
-	public boolean RemovePlayer(int x, int y){
+	public boolean RemoveMonster(int x, int y){
 		return this.layerData[MONSTERLAYER].PutChar(x, y, null);
 	}
 	
 	public void LoadMap(TileMap tilemap) {this.map = tilemap;}
 	
 	public void Draw(int StartX, int StartY, int w, int h, Canvas canvas) {
-		this.layerData[MAPLAYER] = this.map.GetData();
+		this.layerData[MAPLAYER] = this.map.getData();
 		
 		this.layerData[IMAGELAYER].Fill(null);
 		

@@ -5,25 +5,28 @@ public class TileMap {
 	private TileLayer data;
 	private int width;
 	private int height;
-	private TileCharset charset;
 
-	public TileMap(int MapWidth, int MapHeight, TileCharset cset) {
+	public TileMap(int MapWidth, int MapHeight) {
 		
 		this.width = MapWidth;
 		this.height = MapHeight;
-		this.charset = cset;
-		
-		UglyGenerator();
+		this.data = new TileLayer(width,height);
 
 	}
 	
-	public TileLayer GetData() {return this.data;}
+	public int getWidth() {return this.width;}
+	public int getHeight() {return this.height;}
 	
-	public void UglyGenerator() {
+	public TileLayer getData() {return this.data;}
+	
+	public boolean setData(TileLayer data) {
+		if (data.isSameSize(data)) {
+			this.data = data;
+			return true;
+		}
 		
-		this.data = new TileLayer(this.width,this.height,this.charset.GetChar("floor"));
-		this.data.Fill(this.charset.GetChar("floor"));
-		
+		return false;
 	}
+
 
 }

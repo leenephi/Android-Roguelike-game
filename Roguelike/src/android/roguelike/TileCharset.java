@@ -24,9 +24,9 @@ public class TileCharset {
 	 */
 	public void UglyLoadCharset(){
 
-		charset.put("wall", new TileChar(R.drawable.wall, '#', "wall", resources));
-		charset.put("floor", new TileChar(R.drawable.floor, '.', "floor", resources));
-		charset.put("player", new TileChar(R.drawable.player, '.', "player", resources));
+		charset.put("wall", new TileChar(R.drawable.wall, '#', "wall", false, resources));
+		charset.put("floor", new TileChar(R.drawable.floor, '.', "floor", true, resources));
+		charset.put("player", new TileChar(R.drawable.player, '.', "player", false, resources));
 		
 	}
 	
