@@ -24,8 +24,8 @@ public class MainActivity extends Activity {
 	class TileView extends SurfaceView implements SurfaceHolder.Callback {
 		
 	    private DrawThread _thread;
-	    private TouchHandler touchHandler;
 	    private GameGenerator gameGen;
+	    private GameHandler gameHandler;
 	    
 		private int screenWidth;
 		private int screenHeight;
@@ -50,8 +50,8 @@ public class MainActivity extends Activity {
 			screenHeight = display.getHeight();
 	        
 	        gameGen = new GameGenerator(res,screenWidth,screenHeight);
-			
-	        touchHandler = gameGen.getTouchHandler();
+	        
+	        gameHandler = new GameHandler(gameGen);
 	        
 	    }
 	 
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
 	    		int _x = (int) event.getX();
 		        int _y = (int) event.getY();
 		        
-		        gameGen.MovePlayer(touchHandler.getTouchable(_x,_y));
+		        gameHandler.MovePlayer(_x,_y);
 	    	}     
 	        
 	        return true;

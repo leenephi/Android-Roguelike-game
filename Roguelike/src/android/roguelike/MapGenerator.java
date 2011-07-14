@@ -133,8 +133,8 @@ public class MapGenerator {
 		
 		TileLayer data = tilemap.getData();
 		
-		TileChar wall = charset.GetChar("wall");
-		TileChar floor = charset.GetChar("floor");
+		TileChar wall = charset.getChar("wall");
+		TileChar floor = charset.getChar("floor");
 		
 		dots = new ArrayList<Dot>();
 

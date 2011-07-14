@@ -16,7 +16,7 @@ public class Monster {
 		this.gameGen = gameGen;
 		this.name = name;
 		tilescreen = gameGen.getTileScreen();
-		this.gameGen.handleMonster(this);
+		this.gameGen.getMonsterHandler().handleNewMonster(this);
 	}
 	
 	public TileChar getChar() {return c;}

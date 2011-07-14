@@ -8,15 +8,9 @@ import android.graphics.Color;
 
 public class GameGenerator {
 	
-	private TouchHandler _handler;
-    
     private TileCharset charset;
 	private TileScreen tilescreen;
 	private TileMap tilemap;
-	
-	private MapGenerator mapGen;
-	
-	private MonsterGenerator monsterGen;
 	
 	private int screenWidth;
 	private int screenHeight;
@@ -28,6 +22,12 @@ public class GameGenerator {
 	private int worldHeight;
 	
 	private Monster player;
+	
+	private MapGenerator mapGen;
+	private MonsterGenerator monsterGen;
+	
+	private TouchHandler touchHandler;
+	private MonsterHandler monsterHandler;
 
 	public GameGenerator(Resources res, int width, int height){
 
@@ -62,29 +62,17 @@ public class GameGenerator {
         
         touchables.add(new TouchBox("down",buttonW,screenHeight-buttonSmallH,buttonW,buttonSmallH));
         
-        _handler = new TouchHandler(touchables);
+        touchHandler = new TouchHandler(touchables);
+        
+        monsterHandler = new MonsterHandler(this);
 
-        player = new Monster(charset.GetChar("player"), "player", this);
+        player = new Monster(charset.getChar("player"), "player", this);
         
+        monsterHandler.spawnToMap(player);
+
 	}
 	
-	public void handleMonster(Monster monster){
-		this.monsterGen.spawnToMap(monster);
-	}
-	
-	public void MovePlayer(String touch) {
-		
-		if (touch=="left"){
-			player.moveBy(-1, 0);
-        } else if (touch=="right"){
-        	player.moveBy(1, 0);
-        } else if (touch=="up"){
-        	player.moveBy(0, -1);
-        } else if (touch=="down"){
-        	player.moveBy(0, 1);
-	    }
-        
-	}
+	public MonsterHandler getMonsterHandler(){return monsterHandler;}	
 	
 	public Monster getPlayer(){return player;}	
 	
@@ -94,7 +82,7 @@ public class GameGenerator {
 	
 	public TileMap getTileMap(){return tilemap;}	
 	
-	public TouchHandler getTouchHandler(){return _handler;}	
+	public TouchHandler getTouchHandler(){return touchHandler;}	
 
 	public void Draw(Canvas canvas){
 		
@@ -102,7 +90,7 @@ public class GameGenerator {
 		
 		tilescreen.Draw(0, 0, charWidth, charHeight, canvas);
 		
-		_handler.DrawTouchables(canvas);
+		touchHandler.DrawTouchables(canvas);
 		
 	}
 	

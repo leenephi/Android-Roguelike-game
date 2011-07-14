@@ -4,21 +4,37 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.roguelike.TileCharset.CharColor;
 
 public class TileChar {
 	
 	private Bitmap bitmap;
-	private char c;
+	private Paint paint;
+	private Canvas can;
+	private String c;
 	private String name;
+	private CharColor color;
 	private boolean passable;
 	private boolean seeThrough;
 	
-	public TileChar(int ResourceId, char ch, String n, boolean passable, Resources res) {
-		bitmap = BitmapFactory.decodeResource(res, ResourceId);
+	public TileChar(String ch, String name, CharColor color, boolean passable, Resources res) {
+		
+		bitmap = BitmapFactory.decodeResource(res, R.drawable.empty);
+		can = new Canvas(bitmap);
+		
+		paint = new Paint();
+		paint.setTextSize(11);
+		paint.setTextAlign(Paint.Align.LEFT);
+		paint.setSubpixelText (true);
+		
+		paint.setARGB(255, color.getR(), color.getG(), color.getB());
+		can.drawText(ch, 0, 11, paint);
+		
 		this.passable = passable;
 		this.seeThrough = passable;
 		c = ch;
-		name = n;
+		this.name = name;
 	}
 	
 	public void Draw(int x, int y,int w,int h, Canvas canvas){
@@ -27,10 +43,12 @@ public class TileChar {
 
 	public boolean isPassable() {return passable;}
 	
-	public Bitmap GetBitmap() {return bitmap;}
+	public CharColor getColor() {return color;}
 	
-	public char GetChar() {return c;}
+	public Bitmap getBitmap() {return bitmap;}
 	
-	public String GetName() {return name;}
+	public String getChar() {return c;}
+	
+	public String getName() {return name;}
 
 }
