@@ -2,44 +2,86 @@ package android.roguelike;
 
 public class Monster {
 	
-	private int x;
-	private int y;
+	private Dot coordinates;
+	private int hitpoints;
+	private int attack;
 	private TileChar c;
 	private TileScreen tilescreen;
 	private GameGenerator gameGen;
+	private MonsterHandler monsterHandler;
 	private String name;
 	
-	public Monster(TileChar _c, String name, GameGenerator gameGen, int x, int y) {
+	public Monster(TileChar _c, String name, GameGenerator gameGen, Dot coordinates) {
 		c = _c;
-		this.x = -1;
-		this.y = -1;
+		this.coordinates = null;
 		this.gameGen = gameGen;
 		this.name = name;
 		tilescreen = gameGen.getTileScreen();
-		this.gameGen.getMonsterHandler().handleNewMonster(this, x, y);
+		monsterHandler = this.gameGen.getMonsterHandler();
+		monsterHandler.handleNewMonster(this, coordinates);
+	}
+	
+	public boolean isAlive() {return this.hitpoints>0;}
+	
+	public void setStats(int HP, int ATT) {
+		this.attack = ATT;
+		this.hitpoints = HP;
 	}
 	
 	public TileChar getChar() {return c;}
 	
-	public boolean moveTo(int _x, int _y) {
+	public Dot getCoordinates() {return coordinates;}
+	
+	public boolean attackMonster(Monster monster){
+		if (this.coordinates.distanceTo(monster.coordinates)==1) {
+			monster.hitpoints -= this.attack;
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	public boolean moveTo(Dot dot) {
 		
-		TileChar ch  = this.gameGen.getTileMap().getCharData().GetChar(_x, _y);
-		
-		if (ch != null && ch.isPassable()) {
-			if (tilescreen.PutMonster(_x, _y, this)) {
-				tilescreen.RemoveMonster(x, y);
-				x = _x;
-	        	y = _y;
-	        	return true;
-			}
+		if (dot != null) {
 			
+			int _x = dot.x;
+			int _y = dot.y;
+			
+			TileChar ch  = this.gameGen.getTileMap().getCharData().GetChar(_x, _y);
+			
+			if (ch != null && ch.isPassable()) {
+				
+				if ( monsterHandler.isEmpty(dot) ) {
+			
+					if (coordinates != null) {
+						tilescreen.removeMonster(coordinates.x, coordinates.y);
+						monsterHandler.removeMonster(coordinates);
+					}
+					
+					this.coordinates = dot;	
+					
+					tilescreen.putMonster(_x, _y, this);
+					
+					monsterHandler.putMonster(this);
+					
+			        return true;
+				} else {
+					this.attackMonster(monsterHandler.getMonster(dot));
+					return false;
+				}
+				
+				
+			}
+		
 		}
 
         return false;
 		
 	}
 	
-	public boolean moveBy(int dx, int dy) {return moveTo(x+dx, y+dy);}
+	public boolean moveBy(Dot dot) {return moveTo(coordinates.add(dot));}
 	
 
 

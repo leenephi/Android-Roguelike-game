@@ -10,12 +10,14 @@ public class TileCharset {
 	
 	private Map<String, TileChar> charset;
 	
+	private int charHeight;
 	private Resources resources;
 	private Paint paint;
 	
-	public TileCharset(Resources res) {
+	public TileCharset(Resources res,int charHeight) {
 		
 		charset = new HashMap<String, TileChar>();
+		this.charHeight = charHeight;
 		
 		resources = res;
 
@@ -50,7 +52,7 @@ public class TileCharset {
 		TileChar ret = charset.get(name);
 		
 		if (ret == null) {
-			ret = loadChar(new TileChar(ch, name, color, passable, resources));
+			ret = loadChar(new TileChar(ch, name, color, passable, resources,charHeight));
 		}
 		
 		return ret;
@@ -68,9 +70,9 @@ public class TileCharset {
 	 */
 	public void uglyLoadCharset(){
 
-		loadChar(new TileChar("#", "wall", new CharColor(64,64,64), false, resources));
-		loadChar(new TileChar(".", "floor", new CharColor(128,128,128), true, resources));
-		loadChar(new TileChar("@", "player", new CharColor(255,255,255), false, resources));
+		loadChar(new TileChar("#", "wall", new CharColor(64,64,64), false, resources,charHeight));
+		loadChar(new TileChar(".", "floor", new CharColor(128,128,128), true, resources,charHeight));
+		loadChar(new TileChar("@", "player", new CharColor(255,255,255), false, resources,charHeight));
 		
 	}
 	

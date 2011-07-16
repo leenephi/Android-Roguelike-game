@@ -30,14 +30,11 @@ public class TileScreen {
 		
 	}
 	
-	public boolean PutMonster(int x, int y, Monster monster){
-		if (this.layerData[MONSTERLAYER].GetChar(x, y) == null) {
-			return this.layerData[MONSTERLAYER].PutChar(x, y, monster.getChar());
-		}
-		return false;
+	public boolean putMonster(int x, int y, Monster monster){
+		return this.layerData[MONSTERLAYER].PutChar(x, y, monster.getChar());
 	}
-	
-	public boolean RemoveMonster(int x, int y){
+
+	public boolean removeMonster(int x, int y){
 		return this.layerData[MONSTERLAYER].PutChar(x, y, null);
 	}
 	

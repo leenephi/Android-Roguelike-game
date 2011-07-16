@@ -18,6 +18,18 @@ public class GameGenerator {
 	private int charWidth = 13;
 	private int charHeight = 17;
 	
+	public final Dot WAIT = new Dot(0,0);
+	public final Dot LEFT = new Dot(-1,0);
+	public final Dot RIGHT = new Dot(1,0);
+	public final Dot UP = new Dot(0,-1);
+	public final Dot DOWN = new Dot(0,1);
+	
+	public final Dot UPLEFT = UP.add(LEFT);
+	public final Dot UPRIGHT = UP.add(RIGHT);
+	public final Dot DOWNLEFT = DOWN.add(LEFT);
+	public final Dot DOWNRIGHT = DOWN.add(RIGHT);
+	
+	
 	private int worldWidth;
 	private int worldHeight;
 	
@@ -31,13 +43,42 @@ public class GameGenerator {
 
 	public GameGenerator(Resources res, int width, int height){
 
-        charset = new TileCharset(res);
+        charset = new TileCharset(res,charHeight);
         
 		screenWidth = width;
 		screenHeight = height;
 		
-		worldWidth = (screenWidth / charWidth) ;
+		worldWidth = (screenWidth / charWidth)+1 ;
 		worldHeight = (screenHeight / charHeight);
+        
+		
+		int buttonWmargin = (screenWidth/6);
+		int buttonW = ((screenWidth/3)*2)/3;
+		int buttonH = (int)((double)buttonW/1.5);
+		
+		int buttonOrginX = buttonWmargin;
+		int buttonOrginY = screenHeight-buttonH*3;
+
+		touchHandler = new TouchHandler();
+		
+		touchHandler.add(new TouchBox(LEFT,buttonOrginX,buttonOrginY+buttonH,buttonW,buttonH));
+        
+		touchHandler.add(new TouchBox(RIGHT,buttonOrginX+buttonW*2,buttonOrginY+buttonH,buttonW,buttonH));
+        
+		touchHandler.add(new TouchBox(UP,buttonOrginX+buttonW,buttonOrginY,buttonW,buttonH));
+        
+		touchHandler.add(new TouchBox(DOWN,buttonOrginX+buttonW,buttonOrginY+buttonH*2,buttonW,buttonH));
+		
+		touchHandler.add(new TouchBox(WAIT,buttonOrginX+buttonW,buttonOrginY+buttonH,buttonW,buttonH));
+		
+		touchHandler.add(new TouchBox(UPLEFT,buttonOrginX,buttonOrginY,buttonW,buttonH));
+        
+		touchHandler.add(new TouchBox(UPRIGHT,buttonOrginX+buttonW*2,buttonOrginY,buttonW,buttonH));
+        
+		touchHandler.add(new TouchBox(DOWNLEFT,buttonOrginX,buttonOrginY+buttonH*2,buttonW,buttonH));
+        
+		touchHandler.add(new TouchBox(DOWNRIGHT,buttonOrginX+buttonW*2,buttonOrginY+buttonH*2,buttonW,buttonH));
+		
         
 		tilescreen = new TileScreen(worldWidth, worldHeight);
 		tilemap = new TileMap(worldWidth, worldHeight);
@@ -49,29 +90,14 @@ public class GameGenerator {
 		monsterHandler = new MonsterHandler(this);
 
 		monsterGen = new MonsterGenerator(this);
+		
+		monsterGen.generateToMap();
 
-		int buttonW = screenWidth/3;
-		int buttonBigH = buttonW;
-		int buttonSmallH = (int)(buttonW*.75);
-
-		ArrayList<TouchBox> touchables = new ArrayList<TouchBox>();
+        player = new Monster(charset.getChar("player"), "player", this, null);
+        player.setStats(20, 3);
         
-        touchables.add(new TouchBox("left",0,screenHeight-buttonBigH,buttonW,buttonBigH));
+        monsterHandler.setPlayer(player);
         
-        touchables.add(new TouchBox("right",screenWidth-buttonBigH,screenHeight-buttonW,buttonW,buttonBigH));
-        
-        touchables.add(new TouchBox("up",buttonW,screenHeight-buttonSmallH*2,buttonW,buttonSmallH));
-        
-        touchables.add(new TouchBox("down",buttonW,screenHeight-buttonSmallH,buttonW,buttonSmallH));
-        
-        touchHandler = new TouchHandler(touchables);
-
-        player = new Monster(charset.getChar("player"), "player", this, -1, -1);
-        
-        monsterHandler.spawnToMap(player);
-        
-        monsterGen.generateToMap();
-
 	}
 	
 	public MonsterHandler getMonsterHandler(){return monsterHandler;}	

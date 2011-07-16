@@ -9,7 +9,7 @@ public class GameHandler {
 	private MonsterHandler monsterHandler;
 	
 	private Monster player;
-	
+
 	public GameHandler(GameGenerator gameGen){
 
 		this.gameGen = gameGen;
@@ -24,22 +24,26 @@ public class GameHandler {
 	
 	public void MovePlayer(int x, int y) {
 		
-		String touch = gameGen.getTouchHandler().getTouchable(x, y);
+		Dot touch = gameGen.getTouchHandler().getTouchable(x, y);
+
+		if (touch != null) {
+			if (touch.x == 0 && touch.y == 0){
+				//wait
+				monsterHandler.update();
+			}else if (Math.abs(touch.x)<=1 && Math.abs(touch.y)<=1) {
+				player.moveBy(touch);
+				monsterHandler.update();
+			}
+		}
+
 		
-		if (touch=="left"){
-			player.moveBy(-1, 0);
-        } else if (touch=="right"){
-        	player.moveBy(1, 0);
-        } else if (touch=="up"){
-        	player.moveBy(0, -1);
-        } else if (touch=="down"){
-        	player.moveBy(0, 1);
-	    }
+
+		
         
 	}
 	
-	public void handleNewMonster(Monster monster, int x, int y){
-		monsterHandler.handleNewMonster(monster, x, y);
+	public void handleNewMonster(Monster monster, Dot dot){
+		monsterHandler.handleNewMonster(monster, dot);
 	}
 	
 }

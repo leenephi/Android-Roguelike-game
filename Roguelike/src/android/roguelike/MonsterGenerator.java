@@ -1,6 +1,6 @@
 package android.roguelike;
 
-import android.roguelike.TileCharset.CharColor;
+import android.roguelike.TileData.spawnData;
 
 public class MonsterGenerator {
 	
@@ -8,7 +8,7 @@ public class MonsterGenerator {
 	private TileMap tilemap;
 	private TileData data;
 	private TileCharset charset;
-	private MonsterHandler handler;
+	private MonsterHandler monsterHandler;
 	
 	public MonsterGenerator(GameGenerator gameGen) {
 		
@@ -16,12 +16,12 @@ public class MonsterGenerator {
 		this.tilemap = gameGen.getTileMap();
 		this.data = this.tilemap.getData();
 		this.charset = gameGen.getCharset();
-		this.handler = gameGen.getMonsterHandler();
+		this.monsterHandler = gameGen.getMonsterHandler();
 		
 	}
 	
 	
-	public boolean generateToMap(){
+	public void generateToMap(){
 	
 		TileChar c = charset.requestChar("r", "rat", false, charset.new CharColor(192,128,64));
 		 
@@ -29,18 +29,15 @@ public class MonsterGenerator {
 		for (int x=0; x < tilemap.getWidth(); x++) {
 			for (int y=0; y < tilemap.getHeight(); y++) {
 				
-				if (data.getValue(x, y)== data.MONSTER_EASY) {
+				if (data.getValue(x, y)== spawnData.EASY_MONSTER) {
 					
-						Monster m = new Monster(c,"rat", gameGen, x,y);
+						Monster m = new Monster(c,"rat", gameGen, new Dot(x,y));
+						m.setStats(5,1);
 						
 				}
 			}
 		}
-		
-		
-		
-		return false;
-		//TODO make monsters spawn here too
+
 	}
 
 }

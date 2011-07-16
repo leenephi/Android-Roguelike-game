@@ -13,15 +13,15 @@ public class TouchHandler {
 	
 	private Paint paint;
 	
-	public TouchHandler(ArrayList<TouchBox> _touchables) {
-		this.touchables = _touchables;
+	public TouchHandler() {
+		this.touchables = new ArrayList<TouchBox>();
 		
 		paint = new Paint();
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setARGB(64, 255, 255, 255);
 	}
 	
-	public void addTouchable(TouchBox touchable) {this.touchables.add(touchable);}
+	public void add(TouchBox touchable) {this.touchables.add(touchable);}
 	
 	public void DrawTouchables(Canvas canvas){
 		for (TouchBox t: this.touchables) {
@@ -29,9 +29,9 @@ public class TouchHandler {
 		}
 	}
 	
-	public String getTouchable(int x, int y) {
+	public Dot getTouchable(int x, int y) {
 		for (TouchBox t: this.touchables) {
-			if (t.isInside(x, y)) return t.getName();
+			if (t.isInside(x, y)) return t.getId();
 		}
 		
 		return null;

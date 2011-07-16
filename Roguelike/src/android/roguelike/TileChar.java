@@ -18,18 +18,18 @@ public class TileChar {
 	private boolean passable;
 	private boolean seeThrough;
 	
-	public TileChar(String ch, String name, CharColor color, boolean passable, Resources res) {
+	public TileChar(String ch, String name, CharColor color, boolean passable, Resources res, int charHeight) {
 		
 		bitmap = BitmapFactory.decodeResource(res, R.drawable.empty);
 		can = new Canvas(bitmap);
 		
 		paint = new Paint();
-		paint.setTextSize(11);
+		paint.setTextSize(charHeight-2);
 		paint.setTextAlign(Paint.Align.LEFT);
 		paint.setSubpixelText (true);
 		
 		paint.setARGB(255, color.getR(), color.getG(), color.getB());
-		can.drawText(ch, 0, 11, paint);
+		can.drawText(ch, 0, charHeight-2, paint);
 		
 		this.passable = passable;
 		this.seeThrough = passable;

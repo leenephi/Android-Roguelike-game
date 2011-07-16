@@ -7,6 +7,7 @@ public class MapGenerator {
 	private GameGenerator gameGen;
 	private TileMap tilemap;
 	private TileCharset charset;
+	private TileData tileData;
 	private int width;
 	private int height;
 	private ArrayList<Dot> dots;
@@ -14,23 +15,13 @@ public class MapGenerator {
 	public MapGenerator(GameGenerator gameGen) {
 		this.gameGen = gameGen;
 		this.tilemap = gameGen.getTileMap();
+		this.tileData = this.tilemap.getData();
 		charset = gameGen.getCharset();
 		
 		width = tilemap.getWidth();
 		height = tilemap.getHeight();
 	}
-	
-	class Dot {
-		
-		public Dot(int x,int y){
-			this.x=x;
-			this.y=y;
-		}
-		
-		public int x;
-		public int y;
-	}
-	
+
 	public TileLayer makeCorridor(TileLayer data, TileChar floor) {
 		
 	    int length;
@@ -98,7 +89,7 @@ public class MapGenerator {
 		
 	}
 
-	public TileLayer makeRoom(TileLayer data, TileChar floor,  char dataChar){
+	public TileLayer makeRoom(TileLayer data, TileChar floor,  TileData.spawnData dataChar){
 		
 		
 		Dot d = null;
@@ -147,9 +138,15 @@ public class MapGenerator {
 
 	    }
 	    
-	    for (int i=0; i<10; i++) {
+	    for (int i=0; i<8; i++) {
 		    
-	    	data = makeRoom(data, floor,tilemap.getData().MONSTER_EASY);
+	    	data = makeRoom(data, floor,null);
+
+	    }
+	    
+	    for (int i=0; i<2; i++) {
+		    
+	    	data = makeRoom(data, floor,TileData.spawnData.EASY_MONSTER);
 
 	    }
 	    

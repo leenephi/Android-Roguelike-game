@@ -9,17 +9,17 @@ public class TouchBox {
 	private int y;
 	private int w;
 	private int h;
-	private String name;
+	private Dot id;
 
-	public TouchBox(String _name, int _x, int _y, int _w, int _h) {
+	public TouchBox(Dot id, int _x, int _y, int _w, int _h) {
 		this.x = _x;
 		this.y = _y;
 		this.w = _w;
 		this.h = _h;
-		this.name = _name;
+		this.id = id;
 	}
 	
-	public String getName() {return name;}
+	public Dot getId() {return id;}
 	
 	public boolean isInside(int _x, int _y) {
 		return ( _x >= x && _x <= x + w && _y >= y && _y <= y + h);
