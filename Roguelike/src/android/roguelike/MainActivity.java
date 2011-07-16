@@ -59,11 +59,15 @@ public class MainActivity extends Activity {
 
 	    	if(event.getAction() == MotionEvent.ACTION_DOWN){
 	    		
-	    		int _x = (int) event.getX();
-		        int _y = (int) event.getY();
+	    		int x = (int) event.getX();
+		        int y = (int) event.getY();
 		        
-		        gameHandler.MovePlayer(_x,_y);
-	    	}     
+		        gameHandler.MovePlayer(gameGen.getTouchHandler().getTouchable(x, y));
+		        
+		        
+	    	} else {
+	    		
+	    	}
 	        
 	        return true;
 	    }

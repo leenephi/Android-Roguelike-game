@@ -22,9 +22,9 @@ public class GameHandler {
         
 	}
 	
-	public void MovePlayer(int x, int y) {
-		
-		Dot touch = gameGen.getTouchHandler().getTouchable(x, y);
+	
+	
+	public void MovePlayer(Dot touch) {
 
 		if (touch != null) {
 			if (touch.x == 0 && touch.y == 0){
@@ -36,10 +36,6 @@ public class GameHandler {
 			}
 		}
 
-		
-
-		
-        
 	}
 	
 	public void handleNewMonster(Monster monster, Dot dot){

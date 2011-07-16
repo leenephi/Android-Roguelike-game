@@ -1,7 +1,5 @@
 package android.roguelike;
 
-import java.util.ArrayList;
-
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -48,7 +46,7 @@ public class GameGenerator {
 		screenWidth = width;
 		screenHeight = height;
 		
-		worldWidth = (screenWidth / charWidth)+1 ;
+		worldWidth = (screenWidth / charWidth) ;
 		worldHeight = (screenHeight / charHeight);
         
 		
