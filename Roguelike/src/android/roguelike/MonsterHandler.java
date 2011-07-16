@@ -17,10 +17,13 @@ public class MonsterHandler {
 		
 	}
 	
-	public void handleNewMonster(Monster monster){
+	public void handleNewMonster(Monster monster, int x, int y){
 		if (monsterList.contains(monster)==false) {
 			monsterList.add(monster);
-			spawnToMap(monster);
+			if (monster.moveTo(x, y)==false) {
+				spawnToMap(monster);
+			}
+			
 		}
 	}
 	

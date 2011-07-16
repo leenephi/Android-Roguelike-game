@@ -44,7 +44,7 @@ public class TileScreen {
 	public void LoadMap(TileMap tilemap) {this.map = tilemap;}
 	
 	public void Draw(int StartX, int StartY, int w, int h, Canvas canvas) {
-		this.layerData[MAPLAYER] = this.map.getData();
+		this.layerData[MAPLAYER] = this.map.getCharData();
 		
 		this.layerData[IMAGELAYER].Fill(null);
 		

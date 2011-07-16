@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+
+
 public class TouchHandler {
 	
 	private ArrayList<TouchBox> touchables;

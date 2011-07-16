@@ -38,8 +38,8 @@ public class GameHandler {
         
 	}
 	
-	public void handleNewMonster(Monster monster){
-		monsterHandler.handleNewMonster(monster);
+	public void handleNewMonster(Monster monster, int x, int y){
+		monsterHandler.handleNewMonster(monster, x, y);
 	}
 	
 }

@@ -1,12 +1,10 @@
 package android.roguelike;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Paint;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import android.content.res.Resources;
+import android.graphics.Paint;
 
 public class TileCharset {
 	

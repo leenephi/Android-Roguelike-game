@@ -2,8 +2,6 @@ package android.roguelike;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 public class MapGenerator {
 	
 	private GameGenerator gameGen;
@@ -100,7 +98,7 @@ public class MapGenerator {
 		
 	}
 
-	public TileLayer makeRoom(TileLayer data, TileChar floor){
+	public TileLayer makeRoom(TileLayer data, TileChar floor,  char dataChar){
 		
 		
 		Dot d = null;
@@ -122,6 +120,7 @@ public class MapGenerator {
 			int nh = Math.min(ny+h*2,height-1)-ny;
 			
 			data.Box( nx, ny, nw,nh, floor);
+			tilemap.getData().Box( nx, ny, nw,nh, dataChar);
 
 		}
 		
@@ -131,7 +130,7 @@ public class MapGenerator {
 	
 	public void generateDungeon(){
 		
-		TileLayer data = tilemap.getData();
+		TileLayer data = tilemap.getCharData();
 		
 		TileChar wall = charset.getChar("wall");
 		TileChar floor = charset.getChar("floor");
@@ -150,7 +149,7 @@ public class MapGenerator {
 	    
 	    for (int i=0; i<10; i++) {
 		    
-	    	data = makeRoom(data, floor);
+	    	data = makeRoom(data, floor,tilemap.getData().MONSTER_EASY);
 
 	    }
 	    

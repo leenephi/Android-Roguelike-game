@@ -9,21 +9,21 @@ public class Monster {
 	private GameGenerator gameGen;
 	private String name;
 	
-	public Monster(TileChar _c, String name, GameGenerator gameGen) {
+	public Monster(TileChar _c, String name, GameGenerator gameGen, int x, int y) {
 		c = _c;
-		x = 0;
-		y = 0;
+		this.x = -1;
+		this.y = -1;
 		this.gameGen = gameGen;
 		this.name = name;
 		tilescreen = gameGen.getTileScreen();
-		this.gameGen.getMonsterHandler().handleNewMonster(this);
+		this.gameGen.getMonsterHandler().handleNewMonster(this, x, y);
 	}
 	
 	public TileChar getChar() {return c;}
 	
 	public boolean moveTo(int _x, int _y) {
 		
-		TileChar ch  = this.gameGen.getTileMap().getData().GetChar(_x, _y);
+		TileChar ch  = this.gameGen.getTileMap().getCharData().GetChar(_x, _y);
 		
 		if (ch != null && ch.isPassable()) {
 			if (tilescreen.PutMonster(_x, _y, this)) {

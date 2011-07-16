@@ -2,7 +2,8 @@ package android.roguelike;
 
 public class TileMap {
 	
-	private TileLayer data;
+	private TileLayer tileCharData;
+	private TileData otherData;
 	private int width;
 	private int height;
 
@@ -10,18 +11,23 @@ public class TileMap {
 		
 		this.width = MapWidth;
 		this.height = MapHeight;
-		this.data = new TileLayer(width,height);
+		this.tileCharData = new TileLayer(width,height);
+		this.otherData = new TileData(width,height);
 
 	}
 	
 	public int getWidth() {return this.width;}
 	public int getHeight() {return this.height;}
 	
-	public TileLayer getData() {return this.data;}
+	public TileLayer getCharData() {return this.tileCharData;}
+	
+	public TileData getData() {return this.otherData;}
+	
+	
 	
 	public boolean setData(TileLayer data) {
 		if (data.isSameSize(data)) {
-			this.data = data;
+			this.tileCharData = data;
 			return true;
 		}
 		

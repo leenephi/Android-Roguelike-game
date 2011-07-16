@@ -45,6 +45,8 @@ public class GameGenerator {
 		mapGen = new MapGenerator(this);
 		
 		mapGen.generateDungeon();
+		
+		monsterHandler = new MonsterHandler(this);
 
 		monsterGen = new MonsterGenerator(this);
 
@@ -63,12 +65,12 @@ public class GameGenerator {
         touchables.add(new TouchBox("down",buttonW,screenHeight-buttonSmallH,buttonW,buttonSmallH));
         
         touchHandler = new TouchHandler(touchables);
-        
-        monsterHandler = new MonsterHandler(this);
 
-        player = new Monster(charset.getChar("player"), "player", this);
+        player = new Monster(charset.getChar("player"), "player", this, -1, -1);
         
         monsterHandler.spawnToMap(player);
+        
+        monsterGen.generateToMap();
 
 	}
 	
