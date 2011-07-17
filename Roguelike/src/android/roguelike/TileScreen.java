@@ -31,21 +31,21 @@ public class TileScreen {
 	}
 	
 	public boolean putMonster(int x, int y, Monster monster){
-		return this.layerData[MONSTERLAYER].PutChar(x, y, monster.getChar());
+		return this.layerData[MONSTERLAYER].put(x, y, monster.getChar());
 	}
 
 	public boolean removeMonster(int x, int y){
-		return this.layerData[MONSTERLAYER].PutChar(x, y, null);
+		return this.layerData[MONSTERLAYER].put(x, y, null);
 	}
 	
 	public void LoadMap(TileMap tilemap) {this.map = tilemap;}
 	
 	public void Draw(int StartX, int StartY, int w, int h, Canvas canvas) {
-		this.layerData[MAPLAYER] = this.map.getCharData();
-		
+		if (this.map != null) this.layerData[MAPLAYER] = this.map.getCharData();
+
 		this.layerData[IMAGELAYER].Fill(null);
 		
-		this.layerData[MAPLAYER].MergeTo(this.layerData[IMAGELAYER]);
+		if (this.layerData[MAPLAYER] != null) this.layerData[MAPLAYER].MergeTo(this.layerData[IMAGELAYER]);
 		this.layerData[ITEMLAYER].MergeTo(this.layerData[IMAGELAYER]);
 		this.layerData[MONSTERLAYER].MergeTo(this.layerData[IMAGELAYER]);
 		

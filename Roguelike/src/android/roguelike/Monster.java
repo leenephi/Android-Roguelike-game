@@ -1,5 +1,9 @@
 package android.roguelike;
 
+import android.roguelike.MonsterDatabase.MonsterData;
+import android.roguelike.MonsterDatabase.MonsterStat;
+import android.roguelike.TileMap.PassableLayer;
+
 public class Monster {
 	
 	private Dot coordinates;
@@ -23,9 +27,16 @@ public class Monster {
 	
 	public boolean isAlive() {return this.hitpoints>0;}
 	
-	public void setStats(int HP, int ATT) {
+	public Monster setStats(int HP, int ATT) {
 		this.attack = ATT;
 		this.hitpoints = HP;
+		return this;
+	}
+	
+	public Monster setStats(MonsterData data) {
+		this.attack = data.getData(MonsterStat.ATTACK);
+		this.hitpoints = data.getData(MonsterStat.HITPOINTS);
+		return this;
 	}
 	
 	public TileChar getChar() {return c;}
@@ -49,9 +60,15 @@ public class Monster {
 			int _x = dot.x;
 			int _y = dot.y;
 			
-			TileChar ch  = this.gameGen.getTileMap().getCharData().GetChar(_x, _y);
+			PassableLayer pass = this.gameGen.getTileMap().getPassableData();
+			boolean passable = true;//false;
 			
-			if (ch != null && ch.isPassable()) {
+			if (pass != null){
+				passable  = pass.get(_x, _y);
+			}
+			
+
+			if (passable) {
 				
 				if ( monsterHandler.isEmpty(dot) ) {
 			

@@ -1,11 +1,8 @@
 package android.roguelike;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MonsterHandler {
 	
-	private Monster[][] monsterList;
+	private MonsterLayer monsterLayer;
 	private TileMap tilemap;
 	private GameGenerator gameGen;
 	private Monster player;
@@ -15,8 +12,14 @@ public class MonsterHandler {
 		this.gameGen = gameGen;
 		this.tilemap = gameGen.getTileMap();
 		
-		monsterList = new Monster[gameGen.getTileMap().getWidth()][gameGen.getTileMap().getHeight()];
+		monsterLayer = new MonsterLayer(tilemap.getWidth(),tilemap.getHeight());
 		
+	}
+	
+	public class MonsterLayer extends Layer<Monster>{
+		public MonsterLayer(int LayerWidth, int LayerHeight) {
+			super(LayerWidth,LayerHeight);
+		}
 	}
 	
 	public boolean isEmpty(Dot dot){
@@ -24,28 +27,18 @@ public class MonsterHandler {
 	}
 	
 	public Monster getMonster(Dot dot){
-		if (dot != null && dot.onMap(tilemap)){
-			return monsterList[dot.x][dot.y];
-		}
-		return null;
+		return monsterLayer.get(dot);
 	}
 	
 	public void putMonster(Monster monster){
 		if (monster != null){
 			Dot coor = monster.getCoordinates();
-			
-			if (coor.onMap(tilemap)){
-				monsterList[coor.x][coor.y] = monster;
-			}
-			
-			
+			monsterLayer.put(coor,monster);
 		}
 	}
 	
 	public void removeMonster(Dot dot){
-		if (dot != null && dot.onMap(tilemap)){
-			monsterList[dot.x][dot.y] = null;
-		}
+		monsterLayer.put(dot,null);
 	}
 	
 	public void setPlayer(Monster player){
@@ -56,13 +49,14 @@ public class MonsterHandler {
 		
 		for (int x=0; x < tilemap.getWidth(); x++){
 			for (int y=0; y < tilemap.getHeight(); y++){
-				Monster m = monsterList[x][y];
+				
+				Monster m = monsterLayer.get(x, y);
 				if (m != null && m != player) {
 					
 					if (m.isAlive()) {
 						wanderAround(m);
 					} else {
-						monsterList[x][y]=null;
+						monsterLayer.put(x, y, null);
 					}
 					
 					
@@ -73,11 +67,12 @@ public class MonsterHandler {
 	
 	public Monster handleNewMonster(Monster monster, Dot dot){
 		if (monster != null) {
-			if (monster.moveTo(dot)==false) {
-				if (isEmpty(dot)) removeMonster(dot);
+			if (dot == null || monster.moveTo(dot)==false) {
+				
+				Dot coor = monster.getCoordinates();
+				if (isEmpty(dot)) removeMonster(coor);
 				spawnToMap(monster);
 			} 
-			
 			putMonster(monster);
 
 		}

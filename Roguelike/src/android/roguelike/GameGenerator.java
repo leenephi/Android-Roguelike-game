@@ -31,18 +31,24 @@ public class GameGenerator {
 	private int worldWidth;
 	private int worldHeight;
 	
-	private Monster player;
+	private TouchHandler touchHandler;
+	
+	
 	
 	private MapGenerator mapGen;
+	
+	private Monster player;
+	
+	private MonsterDatabase monsterDB;
+	
 	private MonsterGenerator monsterGen;
 	
-	private TouchHandler touchHandler;
+	
 	private MonsterHandler monsterHandler;
 
 	public GameGenerator(Resources res, int width, int height){
 
-        charset = new TileCharset(res,charHeight);
-        
+		
 		screenWidth = width;
 		screenHeight = height;
 		
@@ -77,28 +83,42 @@ public class GameGenerator {
         
 		touchHandler.add(new TouchBox(DOWNRIGHT,buttonOrginX+buttonW*2,buttonOrginY+buttonH*2,buttonW,buttonH));
 		
-        
+		
+		
+		charset = new TileCharset(res,charHeight);
+		
 		tilescreen = new TileScreen(worldWidth, worldHeight);
+		
+		
 		tilemap = new TileMap(worldWidth, worldHeight);
-
+		
 		mapGen = new MapGenerator(this);
 		
 		mapGen.generateDungeon();
 		
-		monsterHandler = new MonsterHandler(this);
 
+		monsterDB = new MonsterDatabase (this);
+		
+
+		monsterHandler = new MonsterHandler(this);
+		
 		monsterGen = new MonsterGenerator(this);
 		
 		monsterGen.generateToMap();
+		
+		
 
         player = new Monster(charset.getChar("player"), "player", this, null);
         player.setStats(20, 3);
         
         monsterHandler.setPlayer(player);
         
+        
 	}
 	
 	public MonsterHandler getMonsterHandler(){return monsterHandler;}	
+	
+	public MonsterDatabase getMonsterDatabase(){return monsterDB;}
 	
 	public Monster getPlayer(){return player;}	
 	

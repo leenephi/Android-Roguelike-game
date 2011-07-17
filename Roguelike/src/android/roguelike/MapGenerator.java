@@ -2,20 +2,29 @@ package android.roguelike;
 
 import java.util.ArrayList;
 
+import android.roguelike.TileMap.MonsterSpawnLayer;
+import android.roguelike.TileMap.PassableLayer;
+
 public class MapGenerator {
 	
 	private GameGenerator gameGen;
 	private TileMap tilemap;
 	private TileCharset charset;
-	private TileData tileData;
+	
+	private MonsterSpawnLayer spawnData;
+	private PassableLayer passableData;
+	
 	private int width;
 	private int height;
+	
 	private ArrayList<Dot> dots;
 	
 	public MapGenerator(GameGenerator gameGen) {
 		this.gameGen = gameGen;
 		this.tilemap = gameGen.getTileMap();
-		this.tileData = this.tilemap.getData();
+		this.spawnData = this.tilemap.getSpawnData();
+		this.passableData = this.tilemap.getPassableData();
+		
 		charset = gameGen.getCharset();
 		
 		width = tilemap.getWidth();
@@ -52,12 +61,13 @@ public class MapGenerator {
 					
 					for(int x=-1; x<2; x++){
 						for(int y=-1; y<2; y++){
-							if (data.GetChar(nx+x, ny+y) == floor) return makeCorridor(data, floor);
+							if (data.get(nx+x, ny+y) == floor) return makeCorridor(data, floor);
 						}
 					}
 					
 					
 					data.xLine(d.x, d.y, nx, floor);
+					passableData.xLine(d.x, d.y, nx, true);
 					dots.add(new Dot(nx,ny));
 					
 	
@@ -71,11 +81,12 @@ public class MapGenerator {
 					
 					for(int x=-1; x<2; x++){
 						for(int y=-1; y<2; y++){
-							if (data.GetChar(nx+x, ny+y) == floor) return makeCorridor(data, floor);
+							if (data.get(nx+x, ny+y) == floor) return makeCorridor(data, floor);
 						}
 					}
 					
 					data.yLine(d.x, d.y, ny, floor);
+					passableData.yLine(d.x, d.y, ny, true);
 					dots.add(new Dot(nx,ny));
 					
 				}
@@ -89,7 +100,7 @@ public class MapGenerator {
 		
 	}
 
-	public TileLayer makeRoom(TileLayer data, TileChar floor,  TileData.spawnData dataChar){
+	public TileLayer makeRoom(TileLayer data, TileChar floor, TileMap.MonsterSpawnData spawn){
 		
 		
 		Dot d = null;
@@ -111,7 +122,8 @@ public class MapGenerator {
 			int nh = Math.min(ny+h*2,height-1)-ny;
 			
 			data.Box( nx, ny, nw,nh, floor);
-			tilemap.getData().Box( nx, ny, nw,nh, dataChar);
+			spawnData.Box( nx, ny, nw,nh, spawn);
+			passableData.Box( nx, ny, nw,nh, true);
 
 		}
 		
@@ -129,30 +141,27 @@ public class MapGenerator {
 		dots = new ArrayList<Dot>();
 
 		data.Fill(wall);
+		passableData.Fill(false);
 
 	    dots.add(new Dot(width/2,height/2));
 	    
 	    for (int i=0; i<60; i++) {
 	    
-	    	data = makeCorridor(data, floor);
+	    	makeCorridor(data, floor);
 
 	    }
 	    
 	    for (int i=0; i<8; i++) {
 		    
-	    	data = makeRoom(data, floor,null);
+	    	makeRoom(data, floor,null);
 
 	    }
 	    
 	    for (int i=0; i<2; i++) {
 		    
-	    	data = makeRoom(data, floor,TileData.spawnData.EASY_MONSTER);
+	    	makeRoom(data, floor,TileMap.MonsterSpawnData.EASY_MONSTER);
 
 	    }
-	    
-	    
-	    
-	    tilemap.setData(data);
 	    
 		gameGen.getTileScreen().LoadMap(tilemap);
 		

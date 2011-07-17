@@ -47,12 +47,12 @@ public class TileCharset {
 		return charset.get(name);
 	}
 
-	public TileChar requestChar(String ch, String name, Boolean passable, CharColor color){
+	public TileChar requestChar(String ch, String name, CharColor color){
 		
 		TileChar ret = charset.get(name);
 		
 		if (ret == null) {
-			ret = loadChar(new TileChar(ch, name, color, passable, resources,charHeight));
+			ret = loadChar(new TileChar(ch, name, color, resources,charHeight));
 		}
 		
 		return ret;
@@ -70,9 +70,9 @@ public class TileCharset {
 	 */
 	public void uglyLoadCharset(){
 
-		loadChar(new TileChar("#", "wall", new CharColor(64,64,64), false, resources,charHeight));
-		loadChar(new TileChar(".", "floor", new CharColor(128,128,128), true, resources,charHeight));
-		loadChar(new TileChar("@", "player", new CharColor(255,255,255), false, resources,charHeight));
+		loadChar(new TileChar("#", "wall", new CharColor(64,64,64), resources,charHeight));
+		loadChar(new TileChar(".", "floor", new CharColor(128,128,128), resources,charHeight));
+		loadChar(new TileChar("@", "player", new CharColor(255,255,255), resources,charHeight));
 		
 	}
 	

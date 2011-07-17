@@ -15,24 +15,20 @@ public class TileChar {
 	private String c;
 	private String name;
 	private CharColor color;
-	private boolean passable;
-	private boolean seeThrough;
 	
-	public TileChar(String ch, String name, CharColor color, boolean passable, Resources res, int charHeight) {
+	public TileChar(String ch, String name, CharColor color, Resources res, int charHeight) {
 		
 		bitmap = BitmapFactory.decodeResource(res, R.drawable.empty);
 		can = new Canvas(bitmap);
 		
 		paint = new Paint();
-		paint.setTextSize(charHeight-2);
+		paint.setTextSize(charHeight-4);
 		paint.setTextAlign(Paint.Align.LEFT);
 		paint.setSubpixelText (true);
 		
 		paint.setARGB(255, color.getR(), color.getG(), color.getB());
-		can.drawText(ch, 0, charHeight-2, paint);
+		can.drawText(ch, 0, 1+charHeight/2, paint);
 		
-		this.passable = passable;
-		this.seeThrough = passable;
 		c = ch;
 		this.name = name;
 	}
@@ -40,8 +36,6 @@ public class TileChar {
 	public void Draw(int x, int y,int w,int h, Canvas canvas){
 		canvas.drawBitmap(bitmap, x, y, null);
 	}
-
-	public boolean isPassable() {return passable;}
 	
 	public CharColor getColor() {return color;}
 	
